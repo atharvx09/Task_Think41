@@ -1,8 +1,8 @@
-version: '3.9'
+version: "3.9"
 
 services:
   mongo:
-    image: mongo
+    image: mongo:6
     container_name: mongo
     restart: always
     ports:
@@ -11,9 +11,8 @@ services:
       - mongo_data:/data/db
 
   backend:
-    build: ./server
+    build: ./backend
     container_name: backend
-    restart: always
     ports:
       - "5000:5000"
     environment:
@@ -23,11 +22,10 @@ services:
       - mongo
 
   frontend:
-    build: ./client
+    build: ./frontend
     container_name: frontend
-    restart: always
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
 
