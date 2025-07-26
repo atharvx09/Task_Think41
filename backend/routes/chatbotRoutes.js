@@ -1,8 +1,10 @@
+
+
 // routes/chatbotRoutes.js
 const express = require("express");
-const router = express.Router();
 const { handleChatMessage } = require("../controllers/chatbotController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/", handleChatMessage);
-
+const router = express.Router();
+router.post("/", authMiddleware, handleChatMessage);
 module.exports = router;
