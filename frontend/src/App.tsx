@@ -1,13 +1,12 @@
 // App.tsx
-import React from "react";
-import ChatBot from "./components/ChatBot";
+import { ChatProvider } from "./context/ChatContext";
+import ChatWindow from "./components/ChatWindow";
 
 function App() {
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>🛍️ eCommerce Support Assistant</h1>
-      <ChatBot />
-    </div>
+    <ChatProvider>
+      <ChatWindow />
+    </ChatProvider>
   );
 }
 
