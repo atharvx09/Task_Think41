@@ -17,6 +17,20 @@ const ChatContext = createContext<ChatContextType>({} as ChatContextType);
 export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
+const [conversations, setConversations] = useState<Conversation[]>([]);
+const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
+
+const fetchHistory = async () => {
+  const res = await api.get("/chat/history");
+  setConversations(res.data);
+};
+
+const loadConversation = async (id: string) => {
+  const res = await api.get(`/chat/history/${id}`);
+  setMessages(res.data.messages);
+  setCurrentConversationId(id);
+};
+
 
   const sendMessage = async (msg: string) => {
     setMessages((prev) => [...prev, { sender: "user", content: msg }]);
