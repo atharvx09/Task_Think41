@@ -1,5 +1,4 @@
-# client/Dockerfile
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -10,8 +9,7 @@ COPY . .
 
 RUN npm run build
 
-# Use Nginx to serve build
-FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Serve using a lightweight webserver
+RUN npm install -g serve
+
+CMD ["serve", "-s", "build", "-l", "3000"]
