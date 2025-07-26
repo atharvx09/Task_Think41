@@ -10,7 +10,9 @@ const authRoutes = require("./routes/authRoutes"); // Optional
 dotenv.config(); // Load environment variables
 
 const app = express();
-app.use(cors());
+
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
 app.use(express.json());
 
 // MongoDB Connection
